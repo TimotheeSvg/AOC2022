@@ -2,24 +2,9 @@ from AOC import *
 import collections
 import math
 
-
-
-
 DAY = 2
 DEBUG = True
 s = get_input(DAY).strip().split('\n')
-
-
-
-#A rock
-#B Paper
-#C ciseaux
-#X rock
-#Y Paper
-#Z ciseaux
-
-
-#PART 1 
 
 PART = 1
 ans = 0
@@ -44,51 +29,20 @@ if(ans and not DEBUG):
 else:
     print(f"[DEBUG] Part 1 : {ans}")
 
-
-#A rock
-#B papier
-#C ciseau
-
-#X loose
-#Y draw
-#Z win
-
-#part 2
 PART = 2
 ans = 0
 
-score = {
-    'A' : 1,
-    'B' : 2,
-    'C' : 3
-}
-
-gagnant = {
-    'A' : 'B',
-    'B' : 'C',
-    'C' : 'A',
-}
-
-perdant = {
-    'A' : 'C',
-    'B' : 'A',
-    'C' : 'B',
-}
-
+score = {'A' : 1,'B' : 2,'C' : 3}
+gagnant = {'A' : 'B','B' : 'C','C' : 'A',}
+perdant = {'A' : 'C','B' : 'A','C' : 'B',}
 
 for e in s:
     if(e[2] == 'X'):
-        #loose
         ans += score[e[2].replace('X', perdant[e[0]])] 
-
     elif(e[2] == 'Y'):
-        #draw
         ans += score[e[0]] + 3
     else:
-        #win
         ans+= score[e[2].replace('Z', gagnant[e[0]])] + 6
-
-
 
 if(ans and not DEBUG):    
     submit(DAY, PART, ans)

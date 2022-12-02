@@ -31,7 +31,6 @@ else:
 
 PART = 2
 ans = 0
-
 score = {'A' : 1,'B' : 2,'C' : 3}
 gagnant = {'A' : 'B','B' : 'C','C' : 'A',}
 perdant = {'A' : 'C','B' : 'A','C' : 'B',}

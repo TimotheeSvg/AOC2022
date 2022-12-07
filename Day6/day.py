@@ -41,3 +41,4 @@ if(ans and not DEBUG):
     submit(DAY, PART, ans)
 else:
     print(f"[DEBUG] Part 2 : {ans}")
+

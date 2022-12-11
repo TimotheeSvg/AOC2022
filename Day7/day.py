@@ -10,72 +10,52 @@ import numpy as np
 
 DAY = 7
 DEBUG = True
-# s = get_input(DAY).strip().split('\n')
-s = '''$ cd /
-$ ls
-dir a
-14848514 b.txt
-8504156 c.dat
-dir d
-$ cd a
-$ ls
-dir e
-29116 f
-2557 g
-62596 h.lst
-$ cd e
-$ ls
-584 i
-$ cd ..
-$ cd ..
-$ cd d
-$ ls
-4060174 j
-8033020 d.log
-5626152 d.ext
-7214296 k'''.split("\n")
+s = get_input(DAY).strip().split('\n')
 
 # PART 1
- 
-PART = 1
-ANS = 0
-    
 class Folders:
     def __init__(self, name,parent = None, files = None, folder = None) -> None:
         self.name = name
         self.parent = parent
         self.tabFolder = []
         self.tabFiles = []
+        self.size = 0
         
     def addFolder(self, folder):
         self.tabFolder.append(folder)
     
     def addFile(self, file):
         self.tabFiles.append(file)
-        
+                
     def calculSomme(self):
-        res = 0
         for i in range(len(self.tabFolder)):
-            r = self.tabFolder[i].calculSomme()
-            if r:
-                res +=r
+            somme = self.tabFolder[i].calculSomme()
+            if somme:
+                self.size += somme 
         
         for i in range(len(self.tabFiles)):
-            res += int(self.tabFiles[i].size)
-        if res < 100000:
-            return res
-        else: 
-            return 0
+            self.size += int(self.tabFiles[i].size)
+        tabaille.append(int(self.size))
+        return self.size
+
+    def tester(self):
+        for i in range(len(self.tabFolder)):
+            self.tabFolder[i].afficher()
+        
+        print(f"La taille de {self.name} est égal à {self.size}") 
+
             
 class Files:
     def __init__(self, name, size) -> None:
         self.name = name
         self.size = size  
 
+PART = 1
+ANS = 0
+tabaille = []
+
 strat = Folders('/')
-
 CurrentFile = strat
-
 
 for element in s:
     k = element.split(' ')
@@ -102,7 +82,8 @@ for element in s:
         CurrentFile.addFile(tmp2)
 
 
-ANS = strat.calculSomme()
+strat.calculSomme()
+ANS = sum([x for x in tabaille if x < 100000])
 
 if(ANS and not DEBUG):    
     submit(DAY, PART, ANS)
@@ -113,10 +94,14 @@ else:
 #part 2
 PART = 2
 ans = 0
+totalSpace = 70_000_000 -  30_000_000
 
-#
-# WRITE HERE
-#
+minFile = 99999999999
+tabaille = sorted(set(tabaille))
+print(tabaille)
+for i in range(len(tabaille)):
+    if totalSpace - (strat.size - tabaille[i]) > 0:
+        print(tabaille[i])
 
 if(ans and not DEBUG):    
     submit(DAY, PART, ans)
